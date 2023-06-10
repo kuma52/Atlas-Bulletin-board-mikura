@@ -1,0 +1,95 @@
+@charset "utf-8";
+/* logout中のページ */
+
+/* 共通 */
+html {
+  background-color: blanchedalmond;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #020c42;
+}
+
+body {
+  max-width: 768px;
+  margin: 50px auto 0;
+}
+
+.background {
+  /* 時間あったらいじる */
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(ellipse at 70% 60%, #c3e060 0%, rgba(195, 224, 96, 0) 90%), radial-gradient(ellipse at 30% 30%, #c3e060 0%, rgba(195, 224, 96, 0) 60%), radial-gradient(ellipse at bottom left, #00a3cb 0%, rgba(0, 163, 203, 0) 70%), linear-gradient(135deg, rgba(18, 46, 119, 0) 0%, rgba(18, 46, 119, 0) 75%, #122e77 100%), linear-gradient(to right, #625793 0%, #d55d64 35%, #e49129 65%, #c0671c 100%);
+  background-blend-mode: lighten, saturation, screen, color, color-dodge, multiply;
+  filter: blur(67px);
+  height: 150%;
+  width: 150%;
+}
+
+.wrapper {
+  background-color: #fff;
+  max-width: 530px;
+  height: fit-content;
+  padding: 50px 30px;
+  border-radius: 10px;
+}
+
+.input {
+  height: 20px;
+  max-width: 450px;
+  min-width: 250px;
+}
+
+.inner_element,
+.btn_wrapper {
+  padding-bottom: 30px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding-bottom: 40px;
+}
+
+#login .btn_wrapper,
+#register .btn_wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  background-color: #ffa500;
+  border-radius: 3px;
+  padding: 7px 12px;
+  border: none;
+  color: #1c97c9;
+  font-weight: bolder;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.error_message {
+  font-size: 0.7em;
+  color: #f00;
+  padding-top: 3px;
+}
+
+/* login.blade */
+#login a {
+  font-weight: bold;
+  color: #ffa500;
+}
+
+/* register.blade */
+/* added.blade */
+#added .btn_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.added_element {
+  padding-bottom: 70px;
+  font-weight: bold;
+}

@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// ログアウト中のページ -------------------------------
+Route::get('/login', 'Auth\Login\LoginController@login')->name('login');
+// Route::post('/login', 'Auth\Login\LoginController@login');
+
+Route::get('/register', 'Auth\Register\RegisterAddedController@register');
+Route::post('/register', 'Auth\Register\RegisterAddedController@createnewuser');
+
+// ログイン中のページ -------------------------------
