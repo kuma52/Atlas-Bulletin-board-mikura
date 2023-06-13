@@ -14,6 +14,7 @@ class RegisterRequest extends FormRequest
     public function authorize()
     {
         return true;
+        //ここを変更し忘れやすい falseだと効かない
     }
 
     /**
