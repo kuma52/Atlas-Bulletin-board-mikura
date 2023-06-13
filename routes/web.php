@@ -13,9 +13,39 @@
 
 // ログアウト中のページ -------------------------------
 Route::get('/login', 'Auth\Login\LoginController@login')->name('login');
-// Route::post('/login', 'Auth\Login\LoginController@login');
+Route::post('/login', 'Auth\Login\LoginController@login');
 
 Route::get('/register', 'Auth\Register\RegisterAddedController@register');
 Route::post('/register', 'Auth\Register\RegisterAddedController@createnewuser');
 
 // ログイン中のページ -------------------------------
+Route::group(['middleware' => ['auth']], function () { //loginしていなければlogin画面に返すようにする
+  Route::get('/home', 'User\Post\PostsController@home');
+  Route::get('/home', 'User\Post\PostsController@search');
+  //コメントへのいいね機能
+  Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
+  Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
+
+  //投稿ページ
+  //投稿ページを表示
+  Route::get('/post_create', 'User\Post\PostsController@open')->name('post.create');
+  //投稿する
+  Route::post('/post_create', 'User\Post\PostsController@create');
+  //投稿編集ページ
+  Route::get('/post_edit', 'User\Post\PostsController@postEdit')->name('post.edit');
+  Route::post('/post_edit', 'User\Post\PostsController@edit');
+  //投稿削除機能
+  Route::post('/post_edit', 'User\Post\PostsController@delete');
+
+  //コメント機能
+  Route::post('/post_detail', 'User\Post\PostCommentsController@create');
+  //コメント編集ページ
+  Route::get('/comment_edit', 'User\Post\PostCommentsController@commentEdit')->name('comment.edit');
+  //コメント編集機能
+  Route::post('/comment_edit', 'User\Post\PostCommentsController@edit');
+  //コメント削除機能
+  Route::post('/comment_edit', 'User\Post\PostCommentsController@delete');
+  //コメントへのいいね機能
+  Route::post('/post_detail', 'User\Post\PostCommentFavoritesController@favorite');
+  Route::post('/post_detail', 'User\Post\PostCommentFavoritesController@favorite');
+});

@@ -4,12 +4,12 @@
 
 <div class="background"></div>
 <div class="wrapper" id="login">
-    <form method="GET">
+    <form method="POST">
         @csrf
         <h2>ログイン</h2>
         <div class="inner_element">
             <label for="name">メールアドレス</label><br>
-            <input type="text" class="input" name="mail" type="email">
+            <input type="text" class="input" name="email" type="email">
         </div>
         <div class="inner_element">
             <label for="name">パスワード</label><br>

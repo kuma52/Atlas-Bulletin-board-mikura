@@ -36,9 +36,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
-
-            $data = $request->only('mail', 'password');
-            // ログインが成功したら、トップページへ
+            $data = $request->only('email', 'password');
+            if (Auth::attempt($data)) {
+                return redirect('/home');
+            }
         }
         return view("auth.login");
     }
