@@ -20,11 +20,11 @@ Route::post('/register', 'Auth\Register\RegisterAddedController@createnewuser');
 
 // ログイン中のページ -------------------------------
 Route::group(['middleware' => ['auth']], function () { //loginしていなければlogin画面に返すようにする
-  Route::get('/home', 'User\Post\PostsController@home');
-  Route::get('/home', 'User\Post\PostsController@search');
+  Route::get('/home', 'User\Post\PostsController@home')->name('home');
+  // Route::get('/home', 'User\Post\PostsController@search');
   //コメントへのいいね機能
-  Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
-  Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
+  // Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
+  // Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
 
   //投稿ページ
   //投稿ページを表示

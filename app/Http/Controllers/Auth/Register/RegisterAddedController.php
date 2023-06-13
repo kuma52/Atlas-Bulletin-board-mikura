@@ -50,8 +50,4 @@ class RegisterAddedController extends Controller
         }
         return view('auth.added');
     }
-
-    // public function added(){
-    //     return view('')
-    //}
 }

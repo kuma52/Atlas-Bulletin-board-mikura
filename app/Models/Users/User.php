@@ -16,4 +16,9 @@ class User extends Authenticatable
         'password',
         'admin_role',
     ];
+
+    public function likePostId()
+    {
+        return Like::where('like_user_id', Auth::id());
+    }
 }

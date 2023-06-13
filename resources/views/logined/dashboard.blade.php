@@ -1,100 +1,55 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('logined.layouts.layout')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+@section('content')
+<div class="inner">
+    <h2>掲示板投稿一覧</h2>
+    <div class="d-flex">
+        <div class="box_wrapper">
+            foreach($posts as $post)
+            <div class="box">
+                <div class="d-flex">
+                    <p class="bold">さん</p>
+                    <span class="small">2021年7月1日</span>
+                    <span class="small">View</span>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <a href="">title</a>
+                <div class="d-flex">
+                    foreach($post->subCategories as $sub_category)
+                    <span></span>
+                    endforeach
+                    <span class="small">コメント数</span>
+                    if(Auth::user()->is_Like($post->id))
+                    <span>
+                        <i class="fas fa-heart un_like_btn" post_id=""></i>
+                        <span class=""></span>
+                    </span>
+                    else
+                    <span>
+                        <i class="fas fa-heart like_btn" post_id=""></i>
+                        <span class=""></span>
+                    </span>
+                    endif
                 </div>
             </div>
+            endforeach
         </div>
-    </body>
-</html>
+        <div class="box_wrapper">
+            @if(Auth::user()->admin_role == 1)
+            <a href="/categories_edit" class="btn">カテゴリーを追加</a>
+            @endif
+            <a href="/post_create">投稿</a>
+            <div>
+                <form action="{{ route('home') }}" class="d-block" method="get">
+                    <input type="text" name="keyword" value="{{ old('keyword') }}" placeholder="">
+                    <button type="submit">検索</button>
+                    <input type="submit" name="like_posts" class="btn" value="いいねした投稿">
+                    <input type="submit" name="my_posts" class="btn" value="自分の投稿">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@endsection

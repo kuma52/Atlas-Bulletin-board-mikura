@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/* login中ハンバーガーメニュー */
+.menu_trigger {
+  position: relative;
+  width: 30px;
+  height: 42px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.menu_trigger span {
+  display: block;
+  position: absolute;
+  width: 30px;
+  border-bottom: solid 3px #fff;
+  border-radius: 3px;
+  transition: .35s ease-in-out;
+}
+
+.menu_trigger span:nth-child(1) {
+  top: 6px;
+}
+
+.menu_trigger span:nth-child(2) {
+  top: 16px;
+}
+
+.menu_trigger span:nth-child(3) {
+  top: 26px;
+}
+
+.menu_trigger.active span:nth-child(1) {
+  top: 18px;
+  transform: rotate(-45deg);
+}
+
+.menu_trigger.active span:nth-child(2),
+.menu_trigger.active span:nth-child(3) {
+  top: 18px;
+  transform: rotate(45deg);
+}

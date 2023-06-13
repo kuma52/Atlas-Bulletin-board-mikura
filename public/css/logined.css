@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* logout中のページ */
+
+/* 共通 */
+html {
+  background-color: blanchedalmond;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #020c42;
+}
+
+body {
+  max-width: 768px;
+  margin: 50px auto 0;
+  height: 100%;
+}
+
+.inner h2 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.d-block {
+  display: block;
+}
+
+.box a,
+.box a:hover {
+  color: #ffa500;
+  text-decoration: none;
+}
+
+/* layout */
+header {
+  background-color: #ffa500;
+}
+
+nav {
+  position: relative;
+  /* right: -150%; */
+}
+
+.nav.active {
+  transform: translateX(150%);
+  transition: .5s ease-in-out;
+}
+
+/* builtinboard（home）ページ */
+
+.inner {
+  background-color: #fff;
+  max-width: 500px;
+  /* height: fit-content; */
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.box_wrapper {
+  width: 235px;
+
+}
+
+.box {
+  border: 1px solid #1c97c9;
+}
