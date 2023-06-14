@@ -21,4 +21,23 @@ class User extends Authenticatable
     {
         return Like::where('like_user_id', Auth::id());
     }
+
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function postComments()
+    {
+        return $this->hasMany(PostComment::class);
+    }
+    public function postFavorites()
+    {
+        return $this->hasMany(PostFavorite::class);
+    }
+
+    public function postCommentFavorites()
+    {
+        return $this->hasMany(PostCommentFavorite::class);
+    }
 }

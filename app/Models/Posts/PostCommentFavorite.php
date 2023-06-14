@@ -12,4 +12,14 @@ class PostCommentFavorite extends Model
         'user_id',
         'post_comment_id',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function posts()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

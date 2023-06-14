@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class PostFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,21 +34,17 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            //ユーザー名
-            'username.required' => 'ユーザー名の入力は必須です',
-            'username.string' => 'ユーザー名が無効な入力です',
-            'username.max' => 'ユーザー名は30文字以内で入力してください',
+            //サブカテゴリ
+            'sub_category_id.required' => 'サブカテゴリ―は必須です',
 
-            //address
-            'email.required' => 'メールアドレスの入力は必須です',
-            'email.max' => 'メールアドレスは100文字以内で入力してください',
-            'email.email' => 'メールアドレスの形式が無効です',
-            'email.unique' => '登録済みのメールアドレスです',
+            //タイトル
+            'title.required' => 'タイトルは必須です',
+            'title.max' => 'タイトルは100文字以内にしてください',
+            'title.string' => 'このタイトルは無効です',
 
-            //パスワード
-            'password.required' => 'パスワードの入力は必須です',
-            'password.between' => 'パスワードは8~30文字にしてください',
-            'password.confirmed' => 'パスワードと確認用が一致しません',
+            //post
+            'post.required' => '投稿内容の入力は必須です',
+            'post.max' => '投稿内容は5000文字以内にしてください',
         ];
     }
 }

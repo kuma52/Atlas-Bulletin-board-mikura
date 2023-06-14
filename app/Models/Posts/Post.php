@@ -17,4 +17,31 @@ class Post extends Model
         'post',
         'event_at',
     ];
+
+    //postは一つのuserに属する
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Users\Users\User');
+    }
+
+    //投稿のsubカテゴリ
+    public function postSubCategories()
+    {
+        return $this->hasOne(PostSubCategory::class);
+    }
+
+    public function postComments()
+    {
+        return $this->hasMany(PostComment::class);
+    }
+
+    public function postFavorites()
+    {
+        return $this->hasMany(PostFavorite::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

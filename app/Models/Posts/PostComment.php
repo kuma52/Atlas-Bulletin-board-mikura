@@ -16,4 +16,19 @@ class PostComment extends Model
         'comment',
         'event_at',
     ];
+
+    public function postCommenteFavorites()
+    {
+        return $this->hasMany(PostCommentFavorite::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function posts()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
