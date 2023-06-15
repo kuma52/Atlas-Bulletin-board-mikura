@@ -13,7 +13,7 @@ class PostSubCategory extends Model
         'sub_category',
     ];
 
-    public function postMainCategories()
+    public function sPostMainCategories()
     {
         return $this->belongsTo(PostMainCategory::class);
     }

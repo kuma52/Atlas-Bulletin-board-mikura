@@ -21,27 +21,22 @@ class Post extends Model
     //postは一つのuserに属する
     public function user()
     {
-        return $this->belongsTo('App\Models\Users\Users\User');
+        return $this->belongsTo('App\Models\Users\User');
     }
 
     //投稿のsubカテゴリ
-    public function postSubCategories()
+    public function postSubCategory()
     {
-        return $this->hasOne(PostSubCategory::class);
+        return $this->hasOne('App\Models\Posts\PostSubCategory');
     }
 
     public function postComments()
     {
-        return $this->hasMany(PostComment::class);
+        return $this->hasMany('App\Models\Posts\PostComment');
     }
 
     public function postFavorites()
     {
-        return $this->hasMany(PostFavorite::class);
-    }
-
-    public function users()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasMany('App\Models\Posts\PostFavorite');
     }
 }

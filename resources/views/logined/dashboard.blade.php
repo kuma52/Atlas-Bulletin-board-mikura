@@ -8,25 +8,25 @@
             foreach($posts as $post)
             <div class="box">
                 <div class="d-flex">
-                    <p class="bold">さん</p>
-                    <span class="small">2021年7月1日</span>
+                    <p class="bold">{{ $posts->user->username }}さん</p>
+                    <span class="small">{{ $posts->event_at}}</span>
                     <span class="small">View</span>
                 </div>
-                <a href="">title</a>
+                <!-- <a href="{{ route('post_detail', ['id' => $post->id] ) }}">{{ $posts->title }}</a> -->
                 <div class="d-flex">
-                    foreach($post->subCategories as $sub_category)
-                    <span></span>
+                    foreach($posts->sPostSubCategories as $sub_category)
+                    <span class="icon">{{ $sub_category->sub_category }}</span>
                     endforeach
-                    <span class="small">コメント数</span>
-                    if(Auth::user()->is_Like($post->id))
+                    <!-- <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span> -->
+                    <!-- if(Auth::user()->is_Like($post->id)) -->
                     <span>
                         <i class="fas fa-heart un_like_btn" post_id=""></i>
                         <span class=""></span>
                     </span>
                     else
                     <span>
-                        <i class="fas fa-heart like_btn" post_id=""></i>
-                        <span class=""></span>
+                        <!-- <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i> -->
+                        <!-- <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span> -->
                     </span>
                     endif
                 </div>

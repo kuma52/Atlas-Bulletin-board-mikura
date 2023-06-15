@@ -10,10 +10,11 @@
         <div class="post_contents">
             <label for="sub_category_id">サブカテゴリ―</label>
             <select class="" name="sub_category_id">
+                <option value="none">---</option>
                 @foreach($main_categories as $main_category)
                 <optgroup label="{{ $main_category->main_category }}">
-                    <option value="none">---</option>
-                    @foreach($main_category->sub_categories as $sub_category)
+                    <!-- <option value="none">---</option> -->
+                    @foreach($main_category->sPostSubCategories as $sub_category)
                     <option value="{{ $sub_category->id }}">
                         {{ $sub_category->sub_category }}
                     </option>
@@ -39,7 +40,7 @@
             <span class="error_message">{{ $errors->first('post') }}</span>
             @endif
         </div>
-        <!-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> -->
+        <input type="hidden" name="event_at" value="{{ now()->format('Y-m-d') }}">
         <div class="post_contents">
             <input type="submit" class="btn" value="投稿">
         </div>
