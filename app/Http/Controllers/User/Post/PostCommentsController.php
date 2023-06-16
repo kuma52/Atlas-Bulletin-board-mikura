@@ -8,4 +8,8 @@ use Illuminate\Http\Request;
 class PostCommentsController extends Controller
 {
     //
+    public function commentCreate()
+    {
+        return view('post_detail');
+    }
 }

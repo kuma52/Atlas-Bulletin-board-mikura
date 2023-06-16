@@ -15,11 +15,11 @@ class PostSubCategory extends Model
 
     public function sPostMainCategories()
     {
-        return $this->belongsTo(PostMainCategory::class);
+        return $this->belongsTo('App\Models\Posts\PostMainCategory', 'post_main_category_id');
     }
 
     public function posts()
     {
-        return $this->belongsTo(Post::class);
+        return $this->hasMany('App\Models\Posts\Post', 'post_sub_category_id');
     }
 }

@@ -27,7 +27,7 @@ class Post extends Model
     //投稿のsubカテゴリ
     public function postSubCategory()
     {
-        return $this->hasOne('App\Models\Posts\PostSubCategory');
+        return $this->hasOne('App\Models\Posts\PostSubCategory', 'id', 'post_sub_category_id');
     }
 
     public function postComments()

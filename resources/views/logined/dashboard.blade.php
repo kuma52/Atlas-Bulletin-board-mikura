@@ -5,34 +5,37 @@
     <h2>掲示板投稿一覧</h2>
     <div class="d-flex">
         <div class="box_wrapper">
-            foreach($posts as $post)
+            @foreach($posts as $post)
             <div class="box">
                 <div class="d-flex">
-                    <p class="bold">{{ $posts->user->username }}さん</p>
-                    <span class="small">{{ $posts->event_at}}</span>
+                    <p class="bold">{{ $post->user->username }}さん</p>
+                    <span class="small">{{ $post->event_at}}</span>
                     <span class="small">View</span>
                 </div>
-                <!-- <a href="{{ route('post_detail', ['id' => $post->id] ) }}">{{ $posts->title }}</a> -->
+                <a href="">{{ $post->title }}</a>
                 <div class="d-flex">
-                    foreach($posts->sPostSubCategories as $sub_category)
+                    @foreach($post->postSubCategory as $sub_category)
+
                     <span class="icon">{{ $sub_category->sub_category }}</span>
-                    endforeach
-                    <!-- <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span> -->
-                    <!-- if(Auth::user()->is_Like($post->id)) -->
+                    @endforeach
+
+                    <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span>
+                    @if(Auth::user()->is_Like($post->id))
                     <span>
                         <i class="fas fa-heart un_like_btn" post_id=""></i>
                         <span class=""></span>
                     </span>
-                    else
+                    @else
                     <span>
-                        <!-- <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i> -->
-                        <!-- <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span> -->
+                        <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+                        <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
                     </span>
-                    endif
+                    @endif
                 </div>
             </div>
-            endforeach
+            @endforeach
         </div>
+
         <div class="box_wrapper">
             @if(Auth::user()->admin_role == 1)
             <a href="/categories_edit" class="btn">カテゴリーを追加</a>

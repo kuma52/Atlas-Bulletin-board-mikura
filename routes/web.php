@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
   Route::post('/post_edit', 'User\Post\PostsController@delete');
 
   //コメント機能
-  Route::post('/post_detail', 'User\Post\PostCommentsController@create');
+  Route::post('/post_detail', 'User\Post\PostCommentsController@commentCreate')->name('post.detail');
   //コメント編集ページ
   Route::get('/comment_edit', 'User\Post\PostCommentsController@commentEdit')->name('comment.edit');
   //コメント編集機能

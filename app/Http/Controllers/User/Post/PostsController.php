@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Posts\Post;
 use App\Models\Posts\PostMainCategory;
 use App\Models\Posts\PostSubCategory;
-use App\Http\Requests\PostFormRequest;
+use App\Models\Posts\PostComment;
+use App\Models\Posts\PostFavorite;
 use Illuminate\Support\facades\Auth;
+use App\Http\Requests\PostFormRequest;
 use App\Models\Users\User;
 
 
@@ -22,8 +24,14 @@ class PostsController extends Controller
 
     public function home(Request $request)
     {
-        $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')->latest()->get();
-        return view('logined.dashboard', compact('posts'));
+        $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')
+            ->latest() //最新のものを
+            ->paginate(10); //10こだけ
+        $sub_category = PostSubCategory::all();
+        // dd($sub_category);
+        $post_comment = PostComment::all();
+        $favorite = PostFavorite::all();
+        return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite'));
     }
 
     public function open()
