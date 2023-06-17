@@ -15,11 +15,11 @@ class PostCommentFavorite extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Http\Models\Users\User');
     }
 
     public function posts()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo('App\Http\Models\Posts\Post');
     }
 }

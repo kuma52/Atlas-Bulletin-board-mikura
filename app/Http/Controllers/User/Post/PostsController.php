@@ -29,8 +29,8 @@ class PostsController extends Controller
             ->paginate(10); //10こだけ
         $sub_category = PostSubCategory::all();
         // dd($sub_category);
-        $post_comment = PostComment::all();
-        $favorite = PostFavorite::all();
+        $post_comment = new Post;
+        $favorite = new PostFavorite;
         return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite'));
     }
 

@@ -14,6 +14,6 @@ class PostMainCategory extends Model
 
     public function sPostSubCategories()
     {
-        return $this->hasMany(PostSubCategory::class);
+        return $this->hasMany('App\Models\Posts\PostSubCategory');
     }
 }

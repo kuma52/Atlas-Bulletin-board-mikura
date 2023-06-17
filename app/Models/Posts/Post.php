@@ -27,7 +27,7 @@ class Post extends Model
     //投稿のsubカテゴリ
     public function postSubCategory()
     {
-        return $this->hasOne('App\Models\Posts\PostSubCategory', 'id', 'post_sub_category_id');
+        return $this->belongsTo('App\Models\Posts\PostSubCategory', 'post_sub_category_id', 'id');
     }
 
     public function postComments()
@@ -38,5 +38,11 @@ class Post extends Model
     public function postFavorites()
     {
         return $this->hasMany('App\Models\Posts\PostFavorite');
+    }
+
+    //postCommentsテーブルからpost_idのレコードだけ引っ張る＝コメント数
+    public function commentCounts($post_id)
+    {
+        return Post::with('postComments')->find($post_id)->postComments();
     }
 }

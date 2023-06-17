@@ -20,6 +20,6 @@ class PostSubCategory extends Model
 
     public function posts()
     {
-        return $this->hasMany('App\Models\Posts\Post', 'post_sub_category_id');
+        return $this->hasMany('App\Models\Posts\Post', 'id', 'post_sub_category_id');
     }
 }

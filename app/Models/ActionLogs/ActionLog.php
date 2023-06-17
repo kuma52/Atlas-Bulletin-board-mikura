@@ -13,4 +13,9 @@ class ActionLog extends Model
         'post_id',
         'event_at',
     ];
+
+    public function viewCounts($post_id)
+    {
+        return $this->where('post_id', $post_id)->get()->count();
+    }
 }

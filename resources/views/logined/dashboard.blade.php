@@ -14,16 +14,16 @@
                 </div>
                 <a href="">{{ $post->title }}</a>
                 <div class="d-flex">
-                    @foreach($post->postSubCategory as $sub_category)
 
-                    <span class="icon">{{ $sub_category->sub_category }}</span>
-                    @endforeach
+
+                    <span class="icon">{{ $post->postSubCategory->sub_category }}</span>
+
 
                     <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span>
-                    @if(Auth::user()->is_Like($post->id))
+                    @if(Auth::user()->is_Favorite($post->id))
                     <span>
                         <i class="fas fa-heart un_like_btn" post_id=""></i>
-                        <span class=""></span>
+                        <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
                     </span>
                     @else
                     <span>

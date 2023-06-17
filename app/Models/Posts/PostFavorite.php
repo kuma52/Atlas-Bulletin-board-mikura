@@ -15,15 +15,15 @@ class PostFavorite extends Model
 
     public function likeCounts($post_id)
     {
-        return $this->where('like_post_id', $post_id)->get()->count();
+        return $this->where('post_id', $post_id)->get()->count();
     }
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\Users\User');
     }
     public function posts()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo('App\Models\Posts\Post');
     }
 }
