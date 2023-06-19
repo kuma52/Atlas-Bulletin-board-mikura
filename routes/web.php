@@ -20,8 +20,7 @@ Route::post('/register', 'Auth\Register\RegisterAddedController@createnewuser');
 
 // ログイン中のページ -------------------------------
 Route::group(['middleware' => ['auth']], function () { //loginしていなければlogin画面に返すようにする
-  Route::get('/home', 'User\Post\PostsController@home')->name('home');
-  // Route::get('/home', 'User\Post\PostsController@search');
+  Route::get('/home/{keyword?}', 'User\Post\PostsController@show')->name('post.show');
   //コメントへのいいね機能
   // Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
   // Route::post('/home', 'User\Post\PostCommentFavoritesController@favorite');
@@ -31,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
   Route::get('/post_create', 'User\Post\PostsController@open')->name('post.create');
   //投稿する
   Route::post('/post_create', 'User\Post\PostsController@create');
+  //投稿詳細ページ
+  Route::get('/post_detail/{id}', 'User\Post\PostsController@postDetail')->name('post.detail');
   //投稿編集ページ
   Route::get('/post_edit', 'User\Post\PostsController@postEdit')->name('post.edit');
   Route::post('/post_edit', 'User\Post\PostsController@edit');
@@ -38,7 +39,7 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
   Route::post('/post_edit', 'User\Post\PostsController@delete');
 
   //コメント機能
-  Route::post('/post_detail', 'User\Post\PostCommentsController@commentCreate')->name('post.detail');
+  Route::post('/post_detail', 'User\Post\PostCommentsController@commentCreate')->name('comment.create');
   //コメント編集ページ
   Route::get('/comment_edit', 'User\Post\PostCommentsController@commentEdit')->name('comment.edit');
   //コメント編集機能

@@ -34,8 +34,21 @@
                 <div id="username">
                     <p>{{ Auth::user()->username }}<span class="small">さん</span></p>
                 </div>
-                <li><a href="/home">ホーム</a></li>
-                <li><a href="/logout">ログアウト</a></li>
+                <li>
+                    <a href="/home" aria-describedby="tooltip-home">
+                        <i class=" fas fa-home"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" aria-describedby="tooltip-logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+                <!-- ツールチップの内容 -->
+                <!-- <div class="tooltip">
+                    <span id="tooltipContent">ホームに移動</span>
+                    <span id="tooltipContent">ログアウト</span>
+                </div> -->
             </nav>
             <div class="nav">
                 <div class="menu_trigger">

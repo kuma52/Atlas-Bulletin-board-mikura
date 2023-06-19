@@ -22,16 +22,39 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-    public function home(Request $request)
+    public function show(Request $request)
     {
-        $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')
-            ->latest() //最新のものを
-            ->paginate(10); //10こだけ
         $sub_category = PostSubCategory::all();
-        // dd($sub_category);
         $post_comment = new Post;
         $favorite = new PostFavorite;
-        return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite'));
+        $main_category = PostMainCategory::with('sPostSubCategories')->get();
+        $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory');
+
+        if (!empty($request->keyword)) { //もしキーワードに入力があれば
+            $posts = Post::with('user', 'postComments')
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->orWhere('post', 'like', '%' . $request->keyword . '%')
+                ->latest()->paginate(10);
+        } else if ($request->category_word) { //もしカテゴリーが押されたら
+            //subcategoriesテーブル（←中間テーブル）から、sub_categoryカラムが●●の時のpost_idカラムの値を取り出してきたい
+            // dd($request);
+            $sub_category = $request->category_word;
+            $posts = Post::with('user', 'postComments')
+                ->whereHas('postSubCategory', function ($query) use ($sub_category) {
+                    $query->where('sub_category', $sub_category);
+                })->latest()->paginate(10);
+        } else if ($request->favorite_posts) { //もしいいねした投稿がおされたら
+            $favorites = Auth::user()->favoritePostId()->get('post_id');
+            $posts = Post::with('user', 'postComments')
+                ->whereIn('id', $favorites)->latest()->paginate(10);
+        } else if ($request->my_posts) { //もし自分の投稿が押されたら
+            $posts = Post::with('user', 'postComments')
+                ->where('user_id', Auth::id())->latest()->paginate(10);
+        } else { //もしキーワードが入力ナシなら
+            $posts = $posts->latest()->paginate(10);
+        }
+
+        return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite', 'main_category'));
     }
 
     public function open()
@@ -58,5 +81,14 @@ class PostsController extends Controller
         ]);
 
         return redirect()->route('home');
+    }
+
+    //投稿詳細画面
+    public function postDetail($post_id)
+    {
+        $post = Post::with('user')->findOrFail($post_id);
+        $post_comment = PostComment::with('user_id', 'post_id')->findOrFail($post_id);
+
+        return view('logined.post_detail', compact('post', 'post_comment'));
     }
 }

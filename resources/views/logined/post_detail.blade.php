@@ -1,104 +1,55 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('logined.layouts.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-        </div>
-        @endif
-
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
-            </div>
-
-            <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://blog.laravel.com">Blog</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://vapor.laravel.com">Vapor</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
-            </div>
-        </div>
+@section('content')
+<div class="inner">
+    <h2>掲示板詳細画面</h2>
+    <div class="d-flex">
+        <p class="bold">{{ $post->user->username }}さん</p>
+        <span class="small">{{ $post->event_at}}</span>
+        <span class="small">View</span>
     </div>
-</body>
+    <h3>{{ $post->title }}</h3>
+    <p>{{ $post->post}}</p>
+    <div class="d-flex">
+        <span class="icon">{{ $post->postSubCategory->sub_category }}</span>
+        <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span>
+        @if(Auth::user()->is_Favorite($post->id))
+        <span>
+            <i class="fas fa-heart un_like_btn" post_id=""></i>
+            <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+        </span>
+        @else
+        <span>
+            <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+            <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+        </span>
+        @endif
+    </div>
 
-</html>
+    <!-- <div class="comment_area">
+        foreach($post_comment as $post_comment)
+        <div class="d-flex">
+            <p class="bold">{{ $post_comment->user_id->username }}さん</p>
+            <span class="small">{{ $post->event_at}}</span>
+        </div>
+        <p>コメント</p>
+        <div>
+            <a href="">編集</a>
+            @if(Auth::user()->is_commentFavorite($post->id))
+            <span>
+                <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+                <span class="comment_like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+            </span>
+            @else
+            <span>
+                <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+                <span class="comment_like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+            </span>
+            @endif
+        </div>
+        endforeach
+    </div>
+</div> -->
+
+
+    @endsection

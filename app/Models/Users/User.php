@@ -49,4 +49,11 @@ class User extends Authenticatable
     {
         return PostFavorite::where('user_id', Auth::id())->where('post_id', $post_id)->first(['post_favorites.id']);
     }
+
+
+    //いいねしている投稿のidを引き出す
+    public function favoritePostId()
+    {
+        return PostFavorite::where('user_id', Auth::id());
+    }
 }
