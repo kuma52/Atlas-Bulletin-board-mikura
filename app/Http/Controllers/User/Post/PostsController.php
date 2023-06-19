@@ -50,7 +50,7 @@ class PostsController extends Controller
         } else if ($request->my_posts) { //もし自分の投稿が押されたら
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->latest()->paginate(10);
-        } else { //もしキーワードが入力ナシなら
+        } else { //検索何もしてなかったとき
             $posts = $posts->latest()->paginate(10);
         }
 
