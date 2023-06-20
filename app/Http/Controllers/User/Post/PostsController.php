@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Posts\Post;
 use App\Models\Posts\PostMainCategory;
 use App\Models\Posts\PostSubCategory;
-use App\Models\Posts\PostComment;
+use App\Models\Posts\PostCommentFavorite;
 use App\Models\Posts\PostFavorite;
 use Illuminate\Support\facades\Auth;
 use App\Http\Requests\PostFormRequest;
@@ -80,15 +80,16 @@ class PostsController extends Controller
             'event_at' => $request->event_at
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('post.show');
     }
 
     //投稿詳細画面
     public function postDetail($post_id)
     {
-        $post = Post::with('user')->findOrFail($post_id);
-        $post_comment = PostComment::with('user_id', 'post_id')->findOrFail($post_id);
-
-        return view('logined.post_detail', compact('post', 'post_comment'));
+        $post = Post::with('user', 'postcomments', 'postFavorites')->where('id', $post_id)->get();
+        // dd($post);
+        $favorite = new PostFavorite;
+        $comment_favorite = new PostCommentFavorite;
+        return view('logined.post_detail', compact('post', 'favorite', 'comment_favorite'));
     }
 }

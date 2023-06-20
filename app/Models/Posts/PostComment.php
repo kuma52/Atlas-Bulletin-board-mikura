@@ -19,16 +19,16 @@ class PostComment extends Model
 
     public function postCommenteFavorites()
     {
-        return $this->hasMany(PostCommentFavorite::class);
+        return $this->hasMany('App\Models\Posts\PostCommentFavorite');
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\Users\User');
     }
 
-    public function posts()
+    public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo('App\Models\Posts\Post');
     }
 }

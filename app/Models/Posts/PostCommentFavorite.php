@@ -22,4 +22,15 @@ class PostCommentFavorite extends Model
     {
         return $this->belongsTo('App\Http\Models\Posts\Post');
     }
+
+    public function postComments()
+    {
+        return $this->belongsTo('App\Http\Models\Posts\PostComment');
+    }
+
+    //commentへのいいね数
+    public function commentFavoriteCounts($post_comment_id)
+    {
+        return $this->where('post_comment_id', $post_comment_id)->get()->count();
+    }
 }

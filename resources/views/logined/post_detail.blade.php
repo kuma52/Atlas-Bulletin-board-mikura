@@ -3,53 +3,62 @@
 @section('content')
 <div class="inner">
     <h2>掲示板詳細画面</h2>
+    @foreach($post as $post)
     <div class="d-flex">
         <p class="bold">{{ $post->user->username }}さん</p>
         <span class="small">{{ $post->event_at}}</span>
         <span class="small">View</span>
+        @if($post->user_id == Auth::user()->id)
+        <div>
+            <span class="btn btn-primary" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
+        </div>
+        @endif
     </div>
     <h3>{{ $post->title }}</h3>
     <p>{{ $post->post}}</p>
     <div class="d-flex">
         <span class="icon">{{ $post->postSubCategory->sub_category }}</span>
-        <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span>
+        <span class="small">コメント数{{ $post->commentCounts($post->id)->count() }}</span>
         @if(Auth::user()->is_Favorite($post->id))
         <span>
-            <i class="fas fa-heart un_like_btn" post_id=""></i>
-            <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+            <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+            <span class="favorite_counts{{ $post->id }}">{{ $favorite->favoriteCounts($post->id) }}</span>
         </span>
         @else
         <span>
             <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
-            <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+            <span class="favorite_counts{{ $post->id }}">{{ $favorite->favoriteCounts($post->id) }}</span>
         </span>
         @endif
+        @endforeach
     </div>
 
-    <!-- <div class="comment_area">
-        foreach($post_comment as $post_comment)
+    <div class="comment_area">
+        @foreach($post->postComments as $post_comment)
         <div class="d-flex">
             <p class="bold">{{ $post_comment->user_id->username }}さん</p>
-            <span class="small">{{ $post->event_at}}</span>
+            <span class="small">{{ $post_comment->event_at}}</span>
         </div>
-        <p>コメント</p>
+        <p>{{ $post_comment->comment }}</p>
         <div>
-            <a href="">編集</a>
-            @if(Auth::user()->is_commentFavorite($post->id))
+            @if($post_comment->user_id == Auth::user()->id)
+            <a href="{{ route('comment.edit', ['id' => $post_comment->id] ) }}">編集</a>
+            @endif
+            @if(Auth::user()->is_commentFavorite($post_comment->id))
             <span>
-                <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
-                <span class="comment_like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+                <i class="fas fa-heart un_like_btn" post_comment_id="{{ $post_comment->id }}"></i>
+                <span class="comment_favorite_counts{{ $post_comment->id }}">{{ $comment_favorite->commentFavoriteCounts($post_comment->id) }}</span>
             </span>
             @else
             <span>
-                <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
-                <span class="comment_like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+                <i class="fas fa-heart like_btn" post_comment_id="{{ $post_comment->id }}"></i>
+                <span class="comment_favorite_counts{{ $post_comment->id }}">{{ $comment_favorite->commentFavoriteCounts($post_comment->id) }}</span>
             </span>
             @endif
         </div>
-        endforeach
+        @endforeach
     </div>
-</div> -->
+</div>
 
 
-    @endsection
+@endsection

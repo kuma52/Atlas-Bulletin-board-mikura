@@ -38,6 +38,23 @@ body {
   font-size: 13px;
 }
 
+.like_btn,
+.un_like_btn {
+  cursor: pointer;
+}
+
+.un_like,
+.un_like_btn {
+  color: #E2254D;
+}
+
+.icon {
+  background-color: #1c97c9;
+  border-radius: 3px;
+  color: #fff;
+  padding: 0 5px;
+}
+
 /* layout */
 header {
   background-color: #ffa500;

@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/logout" aria-describedby="tooltip-logout">
+                    <a href="{{ route('logout') }}" aria-describedby="tooltip-logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>

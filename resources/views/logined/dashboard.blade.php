@@ -14,17 +14,17 @@
                 </div>
                 <a href="{{ route('post.detail', ['id' => $post->id] ) }}">{{ $post->title }}</a>
                 <div class="d-flex">
-                    <span class="icon">{{ $post->postSubCategory->sub_category }}</span>
+                    <span class="icon small">{{ $post->postSubCategory->sub_category }}</span>
                     <span class="small">コメント数{{ $post_comment->commentCounts($post->id)->count() }}</span>
                     @if(Auth::user()->is_Favorite($post->id))
                     <span>
                         <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
-                        <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+                        <span class="favorite_counts{{ $post->id }}">{{ $favorite->fovoriteCounts($post->id) }}</span>
                     </span>
                     @else
                     <span>
                         <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
-                        <span class="like_counts{{ $post->id }}">{{ $favorite->likeCounts($post->id) }}</span>
+                        <span class="favorite_counts{{ $post->id }}">{{ $favorite->favoriteCounts($post->id) }}</span>
                     </span>
                     @endif
                 </div>
