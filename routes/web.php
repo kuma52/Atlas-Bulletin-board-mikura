@@ -33,8 +33,14 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
     //投稿詳細ページ
     Route::get('/post_detail/{id}', 'PostsController@postDetail')->name('post.detail');
     //いいね
-    Route::post('/favorite/post/{id}', 'PostFavoritesController@postFavorite');
-    Route::post('/favorite/post/{id}', 'PostFavoritesController@postUnFavorite');
+    // Route::post(
+    //   '/postfavorite/post/{post_id}',
+    //   function ($post_id) {
+    //     dd($post_id);
+    //   }
+    // );
+    Route::post('/postfavorite/post/{id}', 'PostFavoritesController@postFavorite')->name('post.favorite');
+    Route::post('/postunfavorite/post/{id}', 'PostFavoritesController@postUnFavorite')->name('post.unfavorite');
     //投稿編集ページ
     Route::post('/post_edit', 'PostsController@postEdit')->name('post.edit');
     Route::post('/post_edit', 'PostsController@edit');

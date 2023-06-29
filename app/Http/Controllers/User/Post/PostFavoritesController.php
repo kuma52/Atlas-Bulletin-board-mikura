@@ -4,21 +4,24 @@ namespace App\Http\Controllers\User\Post;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Models\Posts\PostFavorite;
+use App\Models\Posts\PostFavorite;
+use Auth;
 
 class PostFavoritesController extends Controller
 {
 
     public function postFavorite(Request $request)
     {
+        dd($request);
         $user_id = Auth::id();
         $post_id = $request->post_id;
 
-        $like = new PostFavorite;
+        $favorite = new PostFavorite;
 
-        $like->favorite_user_id = $user_id;
-        $like->favorite_post_id = $post_id;
-        $like->save();
+        $favorite->user_id = $user_id;
+        $favorite->post_id = $post_id;
+        // dd($favorite);
+        $favorite->save();
 
         return response()->json();
     }
@@ -28,12 +31,18 @@ class PostFavoritesController extends Controller
         $user_id = Auth::id();
         $post_id = $request->post_id;
 
-        $like = new PostFavorite;
+        $favorite = new PostFavorite;
 
-        $like->where('favorite_user_id', $user_id)
-            ->where('favorite_post_id', $post_id)
+        $favorite->where('user_id', $user_id)
+            ->where('post_id', $post_id)
             ->delete();
 
         return response()->json();
     }
+
+
+    // public function postFavorite(Request $request)
+    // {
+
+    // }
 }

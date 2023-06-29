@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <!--IEブラウザ対策-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- ↓これがないと500エラーが起きて、非同期通信で数字が1増えなかった -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="掲示板です">
     <title>AtlasBuiltinBoard</title>
@@ -28,6 +30,7 @@
 </head>
 
 <body>
+    <div class="bg_pattern Polka"></div>
     <header>
         <div id="menu">
             <nav class="nav">
@@ -63,6 +66,9 @@
         @yield('content')
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
+    <!-- ↓これを書かずにいたのでjsの記述が反映されない～ってなってたおばか -->
+    <script src="{{ asset('js/_script.js') }}"></script>
 </body>
 
 </html>

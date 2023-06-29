@@ -19,7 +19,7 @@
                     @if(Auth::user()->is_Favorite($post->id))
                     <span>
                         <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
-                        <span class="favorite_counts{{ $post->id }}">{{ $favorite->fovoriteCounts($post->id) }}</span>
+                        <span class="favorite_counts{{ $post->id }}">{{ $favorite->favoriteCounts($post->id) }}</span>
                     </span>
                     @else
                     <span>
