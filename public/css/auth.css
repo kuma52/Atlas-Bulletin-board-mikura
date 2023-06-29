@@ -3,7 +3,7 @@
 
 /* 共通 */
 html {
-  background-color: blanchedalmond;
+  /* background-color: blanchedalmond; */
   height: 100%;
   width: 100%;
   display: flex;
@@ -18,13 +18,20 @@ body {
   margin: 50px auto 0;
 }
 
-.background {
-  /* 時間あったらいじる */
-  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(ellipse at 70% 60%, #c3e060 0%, rgba(195, 224, 96, 0) 90%), radial-gradient(ellipse at 30% 30%, #c3e060 0%, rgba(195, 224, 96, 0) 60%), radial-gradient(ellipse at bottom left, #00a3cb 0%, rgba(0, 163, 203, 0) 70%), linear-gradient(135deg, rgba(18, 46, 119, 0) 0%, rgba(18, 46, 119, 0) 75%, #122e77 100%), linear-gradient(to right, #625793 0%, #d55d64 35%, #e49129 65%, #c0671c 100%);
-  background-blend-mode: lighten, saturation, screen, color, color-dodge, multiply;
-  filter: blur(67px);
-  height: 150%;
-  width: 150%;
+.bg_pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.Polka {
+  background-image: radial-gradient(#ffa500 2px, #ffffff 2px);
+  background-size: 27px 27px;
 }
 
 .wrapper {
@@ -33,6 +40,7 @@ body {
   height: fit-content;
   padding: 50px 30px;
   border-radius: 10px;
+  border: #1c97c9 1px solid;
 }
 
 .input {
@@ -60,14 +68,19 @@ h2 {
 }
 
 .btn {
-  background-color: #ffa500;
+  background-color: #1c97c9;
   border-radius: 3px;
   padding: 7px 12px;
   border: none;
-  color: #1c97c9;
+  color: #ffa500;
   font-weight: bolder;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); */
+  /* box-shadow: 1px 1px 0px 0px #1c97c9; */
+}
+
+.letter_space {
+  letter-spacing: 0.25em;
 }
 
 .error_message {

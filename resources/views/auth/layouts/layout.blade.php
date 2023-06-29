@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    <div class="bg_pattern Polka"></div>
     <header>
         <!-- <h1><img src="images/atlas.png" alt="Atlas"></h1> -->
         <p class="sub-title"></p>

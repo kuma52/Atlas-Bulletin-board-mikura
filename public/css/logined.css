@@ -10,13 +10,13 @@ html {
   justify-content: center;
   align-items: center;
   font-size: 15px;
-  color: #020c42;
 }
 
-body {
+html body {
   max-width: 768px;
   margin: 50px auto 0;
   height: 100%;
+  color: #5f360b;
 }
 
 .bg_pattern {
@@ -25,14 +25,14 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #fff;
   opacity: 0.4;
   z-index: -1;
 }
 
 .Polka {
-  background-image: radial-gradient(#ffa500 2px, #ffffff 2px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(#ffa500 2px, #fff 2px);
+  background-size: 27px 27px;
 }
 
 .inner h2 {
@@ -44,14 +44,23 @@ body {
   display: block;
 }
 
-.box a,
-.box a:hover {
+.box a {
   color: #ffa500;
   text-decoration: none;
 }
 
+.box a:hover {
+  /* color: #ff6c00; */
+  color: #ba6205;
+  text-decoration: none;
+}
+
 .small {
-  font-size: 13px;
+  font-size: 0.8em;
+}
+
+.smaller {
+  font-size: 0.5em;
 }
 
 .like_btn,
@@ -65,10 +74,15 @@ body {
 }
 
 .icon {
-  background-color: #1c97c9;
+  border: #1c97c9 1px solid;
   border-radius: 3px;
-  color: #fff;
+  color: #1c97c9;
   padding: 0 5px;
+  font-weight: bold;
+}
+
+.letter_space {
+  letter-spacing: 0.25em;
 }
 
 /* layout */
@@ -82,8 +96,12 @@ nav {
 }
 
 .nav.active {
-  transform: translateX(150%);
+  transform: translateX(50%);
   transition: .5s ease-in-out;
+}
+
+.arange {
+  color: #ffa500;
 }
 
 /* 時間があったらやる　アイコンにマウスオーバーしたら「ログアウト」とか文字が出てくるやつ
@@ -129,4 +147,51 @@ nav {
 
 .box {
   border: 1px solid #1c97c9;
+}
+
+/* 右側 */
+.add a {
+  color: #1c97c9;
+}
+
+.add a:hover {
+  text-decoration: none;
+}
+
+.keyword_box {
+  width: 150px;
+  height: 25px;
+}
+
+.keyword_box::placeholder {
+  font-size: 0.8em;
+}
+
+.keyword_btn {
+  background-color: #1c97c9;
+  border: none;
+  color: #FFF;
+  border-radius: 3px;
+  font-size: 0.8em;
+  height: 25px;
+}
+
+.search_board .btn_design {
+  font-size: 0.8em;
+  background-color: #1c97c9;
+  color: #FFF;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 5px 7px;
+}
+
+.border_line::after {
+  content: "";
+  display: block;
+  border-bottom: #1c97c9 1px solid;
+  width: 125px;
+  position: relative;
+  top: -15px;
+  right: -90px;
 }

@@ -32,7 +32,7 @@
             <input type="password" class="input" name="password_confirmation">
         </div>
         <div class="btn_wrapper">
-            <input type="submit" class="btn" value="確認">
+            <input type="submit" class="btn letter_space" value="確認">
         </div>
 
     </form>

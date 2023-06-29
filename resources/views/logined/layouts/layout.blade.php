@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <!--IEブラウザ対策-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- ↓これがないと500エラーが起きて、非同期通信で数字が1増えなかった -->
+    <!-- csrfトークン↓これがないと500error、Ajaxで数字が1増えなかった -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="掲示板です">
@@ -39,12 +39,12 @@
                 </div>
                 <li>
                     <a href="/home" aria-describedby="tooltip-home">
-                        <i class=" fas fa-home"></i>
+                        <i class=" fas fa-home orange"></i>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}" aria-describedby="tooltip-logout">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt orange"></i>
                     </a>
                 </li>
                 <!-- ツールチップの内容 -->
@@ -53,20 +53,19 @@
                     <span id="tooltipContent">ログアウト</span>
                 </div> -->
             </nav>
-            <div class="nav">
+            <!-- <div class="nav">
                 <div class="menu_trigger">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-            </div>
+            </div> -->
         </div>
     </header>
     <div id="container">
         @yield('content')
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
     <!-- ↓これを書かずにいたのでjsの記述が反映されない～ってなってたおばか -->
     <script src="{{ asset('js/_script.js') }}"></script>
 </body>
