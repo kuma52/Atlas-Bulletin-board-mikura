@@ -55,9 +55,12 @@
                 <span class="comment_favorite_counts{{ $post_comment->id }}">{{ $comment_favorite->commentFavoriteCounts($post_comment->id) }}</span>
             </span>
             @endif
+            <p>unvisible</p>
         </div>
         @endforeach
+        <p>visible</p>
     </div>
+    <p>visible</p>
 </div>
 
 

@@ -108,7 +108,8 @@ class PostsController extends Controller
             ->update([
                 'title' => $request->title,
                 'post' => $request->post,
-                'post_sub_category_id' => $request->sub_category_id
+                'post_sub_category_id' => $request->sub_category_id,
+                'update_user_id' => Auth::id()
             ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
