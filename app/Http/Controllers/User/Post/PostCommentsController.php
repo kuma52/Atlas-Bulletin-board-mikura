@@ -12,4 +12,9 @@ class PostCommentsController extends Controller
     {
         return view('post_detail');
     }
+
+    public function showEdit(Request $request)
+    {
+        return redirect()->route('post.detail', ['id' => $request->post_id]);
+    }
 }

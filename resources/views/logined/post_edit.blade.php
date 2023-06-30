@@ -1,104 +1,53 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('logined.layouts.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-        </div>
-        @endif
-
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
+@section('content')
+<div class="inner">
+    <h2>投稿編集画面</h2>
+    @foreach($post as $post)
+    <div class="post_contents_wrapper">
+        <form action="{{ route( 'post.edit', ['id' => $post->id] ) }}" method="post">
+            @csrf
+            <div class="post_contents">
+                <label for="sub_category_id">サブカテゴリ―</label><br>
+                <select class="" name="sub_category_id">
+                    <option value="none">---</option>
+                    @foreach($main_categories as $main_category)
+                    <optgroup label="{{ $main_category->main_category }}">
+                        @foreach($main_category->sPostSubCategories as $sub_category)
+                        <option value="{{ $sub_category->id }}" @if($post->post_sub_category_id == $sub_category->id) selected @endif>
+                            {{ $sub_category->sub_category }}
+                        </option>
+                        @endforeach
+                    </optgroup>
+                    @endforeach
+                </select>
+                @if($errors->first('sub_category_id'))
+                <span class="error_message">{{ $errors->first('sub_category_id') }}</span>
+                @endif
             </div>
-
-            <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://blog.laravel.com">Blog</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://vapor.laravel.com">Vapor</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
+            <div class="post_contents">
+                <label for="title">タイトル</label><br>
+                <input type="text" name="title" value="{{$post -> title}}"></input>
+                @if($errors->first('title'))
+                <span class="error_message">{{ $errors->first('title') }}</span>
+                @endif
             </div>
-        </div>
+            <div class="post_contents">
+                <label for="post">投稿内容</label><br>
+                <textarea type="text" name="post" value="{{$post -> post}}" class="post_box">{{$post -> post}}</textarea>
+                @if($errors->first('post'))
+                <span class="error_message">{{ $errors->first('post') }}</span>
+                @endif
+            </div>
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
+            <input type="hidden" name="event_at" value="{{ now()->format('Y-m-d') }}">
+            <div class="post_contents">
+                <input type="submit" class="btn" value="更新">
+                <input type="submit" class="btn" value="削除" form="delete">
+            </div>
+        </form>
+        <form action="{{route('post.delete',['id' => $post->id] )}}" method="post" id="delete">@csrf</form>
     </div>
-</body>
-
-</html>
+    @endforeach
+</div>
+@endsection

@@ -10,7 +10,7 @@
         <span class="small">View</span>
         @if($post->user_id == Auth::user()->id)
         <div>
-            <span class="btn btn-primary" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
+            <a href="{{ route('show.edit', ['id' => $post->id] ) }}" class="btn_design" title="{{ $post->post_title }}" post="{{ $post->post }}" id="{{ $post->id }}">編集</a>
         </div>
         @endif
     </div>

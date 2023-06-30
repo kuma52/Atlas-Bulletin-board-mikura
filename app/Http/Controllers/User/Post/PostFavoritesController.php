@@ -12,7 +12,6 @@ class PostFavoritesController extends Controller
 
     public function postFavorite(Request $request)
     {
-        dd($request);
         $user_id = Auth::id();
         $post_id = $request->post_id;
 
@@ -20,7 +19,6 @@ class PostFavoritesController extends Controller
 
         $favorite->user_id = $user_id;
         $favorite->post_id = $post_id;
-        // dd($favorite);
         $favorite->save();
 
         return response()->json();

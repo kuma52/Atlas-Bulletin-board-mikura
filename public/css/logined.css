@@ -195,3 +195,13 @@ nav {
   top: -15px;
   right: -90px;
 }
+
+/* 投稿編集画面 */
+.post_box {
+  width: 250px;
+  height: 270px;
+  /* textboxのなかみを折り返す */
+  white-space: pre-wrap;
+  /*右下隅の//を除去*/
+  resize: none;
+}

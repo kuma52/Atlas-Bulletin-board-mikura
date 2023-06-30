@@ -3,10 +3,12 @@
 namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PostCommentFavorite extends Model
 {
     protected $table = 'post_comment_favorites';
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',

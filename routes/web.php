@@ -33,31 +33,25 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
     //投稿詳細ページ
     Route::get('/post_detail/{id}', 'PostsController@postDetail')->name('post.detail');
     //いいね
-    // Route::post(
-    //   '/postfavorite/post/{post_id}',
-    //   function ($post_id) {
-    //     dd($post_id);
-    //   }
-    // );
     Route::post('/postfavorite/post/{id}', 'PostFavoritesController@postFavorite')->name('post.favorite');
     Route::post('/postunfavorite/post/{id}', 'PostFavoritesController@postUnFavorite')->name('post.unfavorite');
     //投稿編集ページ
-    Route::post('/post_edit', 'PostsController@postEdit')->name('post.edit');
-    Route::post('/post_edit', 'PostsController@edit');
+    Route::get('/post_edit/{id}', 'PostsController@showEdit')->name('show.edit');
+    Route::post('/post_edit/update/{id}', 'PostsController@postEdit')->name('post.edit');
     //投稿削除機能
-    Route::post('/post_edit', 'PostsController@delete');
+    Route::post('/post_edit/delete/{id}', 'PostsController@postDelete')->name('post.delete');
 
     //コメント機能
-    Route::post('/post_detail', 'PostCommentsController@commentCreate')->name('comment.create');
+    Route::post('/post_detail', 'PostCommentsController@create')->name('comment.create');
     //コメント編集ページ
-    Route::get('/comment_edit', 'PostCommentsController@commentEdit')->name('comment.edit');
+    Route::get('/comment_edit', 'PostCommentsController@showEdit')->name('show.comment.edit');
     //コメント編集機能
     Route::post('/comment_edit', 'PostCommentsController@edit');
     //コメント削除機能
     Route::post('/comment_edit', 'PostCommentsController@delete');
     //コメントへのいいね機能
-    Route::post('/post_detail', 'PostCommentFavoritesController@favorite');
-    Route::post('/post_detail', 'PostCommentFavoritesController@favorite');
+    Route::post('/post_detail/{id}', 'PostCommentFavoritesController@commentFavorite');
+    Route::post('/post_detail/{id}', 'PostCommentFavoritesController@commentunFavorite');
   });
   //ログアウト（→ログイン画面へ遷移）
   Route::get('/logout', 'Auth\Login\LoginController@logout')->name('logout');

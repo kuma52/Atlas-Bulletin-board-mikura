@@ -92,4 +92,31 @@ class PostsController extends Controller
         $comment_favorite = new PostCommentFavorite;
         return view('logined.post_detail', compact('post', 'favorite', 'comment_favorite'));
     }
+
+    //投稿編集画面
+    public function showEdit($post_id)
+    {
+        $main_categories = PostMainCategory::with('sPostSubCategories')->get();
+        $sub_categories = PostSubCategory::get();
+        $post = Post::where('id', $post_id)->get();
+        return view('logined.post_edit', compact('post', 'main_categories', 'sub_categories'));
+    }
+
+    public function postEdit(PostFormRequest $request)
+    {
+        Post::where('id', $request->post_id)
+            ->update([
+                'title' => $request->title,
+                'post' => $request->post,
+                'post_sub_category_id' => $request->sub_category_id
+            ]);
+        return redirect()->route('post.detail', ['id' => $request->post_id]);
+    }
+
+    public function postDelete($post_id)
+    {
+        // postModelにsoftdeleteをuseしてるので、物理削除はされない。論理削除がされる。
+        Post::findOrFail($post_id)->delete();
+        return redirect()->route('post.show');
+    }
 }
