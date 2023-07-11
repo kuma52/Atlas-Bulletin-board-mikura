@@ -37,10 +37,4 @@ class PostFavoritesController extends Controller
 
         return response()->json();
     }
-
-
-    // public function postFavorite(Request $request)
-    // {
-
-    // }
 }

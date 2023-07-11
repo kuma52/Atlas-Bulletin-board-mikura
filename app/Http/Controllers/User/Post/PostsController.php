@@ -72,6 +72,7 @@ class PostsController extends Controller
     public function create(PostFormRequest $request)
     {
         //postテーブルに値を送信
+        dd($request);
         Post::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -86,11 +87,12 @@ class PostsController extends Controller
     //投稿詳細画面
     public function postDetail($post_id)
     {
-        $post = Post::with('user', 'postcomments', 'postFavorites')->where('id', $post_id)->get();
+        $post = Post::with('user', 'postComments', 'postFavorites')->where('id', $post_id)->get();
+        // $post = Post::with('user', 'postcomments', 'postFavorites')->findOrFail($post_id);
         // dd($post);
         $favorite = new PostFavorite;
-        $comment_favorite = new PostCommentFavorite;
-        return view('logined.post_detail', compact('post', 'favorite', 'comment_favorite'));
+        $c_favorite = new PostCommentFavorite;
+        return view('logined.post_detail', compact('post', 'favorite', 'c_favorite', 'post_id'));
     }
 
     //投稿編集画面
@@ -102,6 +104,7 @@ class PostsController extends Controller
         return view('logined.post_edit', compact('post', 'main_categories', 'sub_categories'));
     }
 
+    //投稿編集機能
     public function postEdit(PostFormRequest $request)
     {
         Post::where('id', $request->post_id)

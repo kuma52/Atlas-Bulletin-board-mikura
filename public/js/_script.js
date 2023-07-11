@@ -75,3 +75,51 @@ $(document).on('click', '.un_like_btn', function (e) {
 
   });
 });
+
+//commentへのいいね・unいいね
+$(document).on('click', '.c_like_btn', function (e) {
+  e.preventDefault();
+  $(this).addClass('c_un_like_btn');
+  $(this).removeClass('c_like_btn');
+  let post_comment_id = $(this).attr('post_comment_id');
+  let count = $('.comment_favorite_counts' + post_comment_id).text();
+  let countInt = Number(count);
+  $.ajax({//Ajaxリクエストを行なっていくよー
+    headers: {//リクエストヘッダーに追加する情報を指定
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    method: 'POST',
+    url: '/postcommentfavorite/post/' + post_comment_id,
+    data: {
+      post_comment_id: $(this).attr('post_comment_id'),
+    },
+  })
+    .done(function (res) {//Ajaxリクエスト成功の場合
+      console.log(res);
+      $('.comment_favorite_counts' + post_comment_id).text(countInt + 1);
+    }).fail(function (res) {//Ajaxリクエスト失敗の場合
+      console.log('fail');
+    });
+});
+
+$(document).on('click', '.c_un_like_btn', function (e) {
+  e.preventDefault();
+  $(this).removeClass('c_un_like_btn');
+  $(this).addClass('c_like_btn');
+  var post_comment_id = $(this).attr('post_comment_id');
+  var count = $('.comment_favorite_counts' + post_comment_id).text();
+  var countInt = Number(count);
+
+  $.ajax({
+    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    method: "post",
+    url: "/postcommentunfavorite/post/" + post_comment_id,
+    data: {
+      post_comment_id: $(this).attr('post_comment_id'),
+    },
+  }).done(function (res) {
+    $('.comment_favorite_counts' + post_comment_id).text(countInt - 1);
+  }).fail(function () {
+
+  });
+});

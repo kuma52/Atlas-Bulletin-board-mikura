@@ -205,3 +205,14 @@ nav {
   /*右下隅の//を除去*/
   resize: none;
 }
+
+/* 掲示板詳細画面 */
+.c_like_btn,
+.c_un_like_btn {
+  cursor: pointer;
+}
+
+.c_un_like,
+.c_un_like_btn {
+  color: #E2254D;
+}

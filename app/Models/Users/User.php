@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Posts\PostFavorite;
+use App\Models\Posts\PostCommentFavorite;
 use Illuminate\Support\facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -46,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Posts\PostCommentFavorite');
     }
 
-    // 自分がいいねしているかどうか
+    // 自分がpostにいいねしているかどうか
     public function is_Favorite($post_id)
     {
         return PostFavorite::where('user_id', Auth::id())->where('post_id', $post_id)->first(['post_favorites.id']);
@@ -57,5 +58,11 @@ class User extends Authenticatable
     public function favoritePostId()
     {
         return PostFavorite::where('user_id', Auth::id());
+    }
+
+    // 自分がcommentにいいねしているかどうか
+    public function is_commentFavorite($post_comment_id)
+    {
+        return PostCommentFavorite::where('user_id', Auth::id())->where('post_comment_id', $post_comment_id)->first(['post_comment_favorites.id']);
     }
 }

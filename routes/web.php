@@ -42,16 +42,16 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
     Route::post('/post_edit/delete/{id}', 'PostsController@postDelete')->name('post.delete');
 
     //コメント機能
-    Route::post('/post_detail', 'PostCommentsController@create')->name('comment.create');
+    Route::post('/post_detail/{id}/comment', 'PostCommentsController@create')->name('comment.create');
     //コメント編集ページ
-    Route::get('/comment_edit', 'PostCommentsController@showEdit')->name('show.comment.edit');
+    Route::get('/comment_edit/{id}', 'PostCommentsController@showEdit')->name('show.comment.edit');
     //コメント編集機能
-    Route::post('/comment_edit', 'PostCommentsController@edit');
+    Route::post('/comment_edit/{id}', 'PostCommentsController@edit')->name('comment.edit');
     //コメント削除機能
-    Route::post('/comment_edit', 'PostCommentsController@delete');
+    Route::post('/comment_delete/{id}', 'PostCommentsController@delete')->name('comment.delete');
     //コメントへのいいね機能
-    Route::post('/post_detail/{id}', 'PostCommentFavoritesController@commentFavorite');
-    Route::post('/post_detail/{id}', 'PostCommentFavoritesController@commentunFavorite');
+    Route::post('/postcommentfavorite/post/{id}', 'PostCommentFavoritesController@commentFavorite');
+    Route::post('/postcommentunfavorite/post/{id}', 'PostCommentFavoritesController@commentunFavorite');
   });
   //ログアウト（→ログイン画面へ遷移）
   Route::get('/logout', 'Auth\Login\LoginController@logout')->name('logout');
