@@ -72,7 +72,7 @@ class PostsController extends Controller
     public function create(PostFormRequest $request)
     {
         //postテーブルに値を送信
-        dd($request);
+        // dd($request);
         Post::create([
             'user_id' => Auth::id(),
             'title' => $request->title,

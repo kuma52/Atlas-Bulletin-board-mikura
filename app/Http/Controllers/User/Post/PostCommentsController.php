@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts\PostComment;
 use Illuminate\Support\facades\Auth;
+use App\Http\Requests\PostCommentRequest;
 
 class PostCommentsController extends Controller
 {
     //comment作成
-    public function create(Request $request)
+    public function create(PostCommentRequest $request)
     {
         // dd($request);
         PostComment::create([
@@ -32,12 +33,13 @@ class PostCommentsController extends Controller
     }
 
     //comment編集機能
-    public function edit(Request $request)
+    public function edit(PostCommentRequest $request)
     {
         $comment_id = $request->comment_id;
         // dd($request);
         PostComment::where('id', $comment_id)->update([
-            'comment' => $request->newComment
+            'comment' => $request->newComment,
+            'update_user_id' => Auth::id()
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
@@ -45,9 +47,12 @@ class PostCommentsController extends Controller
     //comment削除機能
     public function delete($comment_id)
     {
+        //softDeleteしながらdeleteUserIdは変更できないぽ→変更してからDelete
+        PostComment::where('id', $comment_id)->update([
+            'delete_user_id' => Auth::id()
+        ]);
         // Modelにsoftdeleteをuseしてるので、物理削除はされない。論理削除がされる。
         PostComment::findOrFail($comment_id)->delete();
         return redirect()->route('post.show');
     }
-    //次に始めるときは$comment_idがちゃんとコントローラに渡ってるかどうか確認するところから。
 }

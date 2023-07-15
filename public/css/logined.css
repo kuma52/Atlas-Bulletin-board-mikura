@@ -216,3 +216,10 @@ nav {
 .c_un_like_btn {
   color: #E2254D;
 }
+
+/* コメント編集画面 */
+.error_message {
+  display: block;
+  color: #E2254D;
+  font-size: small;
+}
