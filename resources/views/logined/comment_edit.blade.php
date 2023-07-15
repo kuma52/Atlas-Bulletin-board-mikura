@@ -9,7 +9,7 @@
             @csrf
             <div class="contents">
                 <label for="comment">コメント</label>
-                <textarea type="text" name="newComment" value="{{$comment -> comment}}">{{$comment -> comment}}</textarea>
+                <textarea type="text" name="comment" value="{{$comment -> comment}}">{{$comment -> comment}}</textarea>
                 @if($errors->first('comment'))
                 <span class="error_message">{{ $errors->first('comment') }}</span>
                 @endif

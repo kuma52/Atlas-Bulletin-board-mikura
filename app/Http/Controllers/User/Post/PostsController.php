@@ -107,18 +107,21 @@ class PostsController extends Controller
     //投稿編集機能
     public function postEdit(PostFormRequest $request)
     {
-        Post::where('id', $request->post_id)
-            ->update([
-                'title' => $request->title,
-                'post' => $request->post,
-                'post_sub_category_id' => $request->sub_category_id,
-                'update_user_id' => Auth::id()
-            ]);
+        Post::where('id', $request->post_id)->update([
+            'title' => $request->title,
+            'post' => $request->post,
+            'post_sub_category_id' => $request->sub_category_id,
+            'update_user_id' => Auth::id()
+        ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
 
     public function postDelete($post_id)
     {
+        //softDeleteしながらdeleteUserIdは変更できないぽ→変更してからDelete
+        Post::where('id', $post_id)->update([
+            'delete_user_id' => Auth::id()
+        ]);
         // postModelにsoftdeleteをuseしてるので、物理削除はされない。論理削除がされる。
         Post::findOrFail($post_id)->delete();
         return redirect()->route('post.show');

@@ -35,10 +35,10 @@ class PostCommentsController extends Controller
     //comment編集機能
     public function edit(PostCommentRequest $request)
     {
-        $comment_id = $request->comment_id;
+        // $comment_id = $request->comment_id;
         // dd($request);
-        PostComment::where('id', $comment_id)->update([
-            'comment' => $request->newComment,
+        PostComment::where('id', $request->comment_id)->update([
+            'comment' => $request->comment,
             'update_user_id' => Auth::id()
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);

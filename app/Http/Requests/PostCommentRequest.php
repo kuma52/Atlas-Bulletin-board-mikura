@@ -14,9 +14,6 @@ class PostCommentRequest extends FormRequest
     public function authorize()
     {
         return true;
-        //ここを変更し忘れやすい falseだと効かない
-        //このauthorizeメソッドはTestRequestの使用を許可するどうかを設定するためのメソッドです。
-        //falseが設定されているということはデフォルトでは使用許可されていない状態です。
     }
 
     /**
