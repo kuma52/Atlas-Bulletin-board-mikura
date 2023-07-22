@@ -1,104 +1,58 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('logined.layouts.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
+@section('content')
+<div class="inner">
+    <h2>カテゴリー追加画面</h2>
+    <div class="d-flex">
+        <div class="box_wrapper mr-2">
+            <div>
+                <h2>新規メインカテゴリー</h2>
+                <form action="{{ route('create.main.category') }}" method="post">
+                    @csrf
+                    <input type="text" name="new_main_category">
+                    <input type="submit" value="追加">
+                </form>
+            </div>
+            <div>
+                <h2>メインカテゴリー</h2>
+                <form action="{{ route('create.sub.category') }}" method="post">
+                    @csrf
+                    <div>
+                        <select name="main_category" id="">
+                            @foreach($main_categories as $main_category)
+                            <option value="{{ $main_category->id }}">{{ $main_category->main_category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <h2>新規サブカテゴリー</h2>
+                        <input type="text" name="new_sub_category">
+                        <input type="submit" value="追加">
+                    </div>
+                </form>
+            </div>
         </div>
-        @endif
 
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
+        <div class="box_wrapper">
+            <h2>カテゴリー一覧</h2>
+            <div class="">
+                @foreach($main_categories as $main_category)
+                <div class="mb-2">
+                    <p class="mb-0">{{ $main_category->main_category }}</p>
+                    @foreach($main_category->sPostSubCategories as $sub_category)
+                    <div class="d-flex">
+                        <p class="btn_design mb-1 ml-2">{{ $sub_category->sub_category }}</p>
+                        <input type="submit" form="SubCategoryEdit" value="削除" onclick="return confirm('削除します。よろしいですか？')">
+                    </div>
+                    <input type="hidden" name="sub_category_id" value="{{ $sub_category->id }}" form="SubCategoryEdit">
+                    <form action="{{ route('delete.sub.category', ['id' => $sub_category->id]) }}" id="SubCategoryEdit" method="post">@csrf</form>
+                    @endforeach
+                </div>
+                @endforeach
+                </form>
             </div>
 
-            <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://blog.laravel.com">Blog</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://vapor.laravel.com">Vapor</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
-            </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+@endsection

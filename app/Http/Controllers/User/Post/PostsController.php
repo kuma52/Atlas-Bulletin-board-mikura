@@ -57,6 +57,7 @@ class PostsController extends Controller
         return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite', 'main_category'));
     }
 
+    //投稿作成画面を表示
     public function open()
     {
         $main_categories = PostMainCategory::with('sPostSubCategories')->get();

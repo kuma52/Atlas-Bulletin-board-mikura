@@ -53,6 +53,16 @@ Route::group(['middleware' => ['auth']], function () { //loginしていなけれ
     Route::post('/postcommentfavorite/post/{id}', 'PostCommentFavoritesController@commentFavorite');
     Route::post('/postcommentunfavorite/post/{id}', 'PostCommentFavoritesController@commentunFavorite');
   });
+
+  Route::namespace('Admin\Post')->group(function () {
+    Route::get('/categories', 'PostsController@show')->name('show.categories');
+    Route::post('/main_categories', 'PostMainCategoriesController@create')->name('create.main.category');
+    Route::post('/sub_categories', 'PostSubCategoriesController@create')->name('create.sub.category');
+    Route::post('/sub_categories/delete/{id}', 'PostSubCategoriesController@delete')->name('delete.sub.category');
+  });
+
+
+
   //ログアウト（→ログイン画面へ遷移）
   Route::get('/logout', 'Auth\Login\LoginController@logout')->name('logout');
 });

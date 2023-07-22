@@ -31,9 +31,9 @@ class PostCommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'comment.required' => 'コメントの入力がありません',
-            'comment.string' => 'コメントの形式が無効です',
-            'comment.max' => 'コメントは2500文字以内にしてください'
+            'comment.required' => '入力がありません',
+            'comment.string' => '形式が無効です',
+            'comment.max' => '2500文字以内にしてください'
         ];
     }
 }

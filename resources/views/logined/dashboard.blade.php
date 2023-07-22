@@ -35,7 +35,7 @@
         <div class="box_wrapper">
             <div calss="add">
                 @if(Auth::user()->admin_role == 1)
-                <a href="/categories_edit" class="">カテゴリーを追加</a>
+                <a href="{{ route('show.categories') }}" class="">カテゴリーを追加</a>
                 @endif
                 <a href="/post_create" class="blue">投稿</a>
             </div>

@@ -13,7 +13,6 @@
                     <option value="none">---</option>
                     @foreach($main_categories as $main_category)
                     <optgroup label="{{ $main_category->main_category }}">
-                        <!-- <option value="none">---</option> -->
                         @foreach($main_category->sPostSubCategories as $sub_category)
                         <option value="{{ $sub_category->id }}">
                             {{ $sub_category->sub_category }}

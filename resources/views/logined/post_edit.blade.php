@@ -46,7 +46,7 @@
                 <input type="submit" class="btn" value="削除" form="delete">
             </div>
         </form>
-        <form action="{{route('post.delete',['id' => $post->id] )}}" method="post" id="delete">@csrf</form>
+        <form action="{{route('post.delete', ['id' => $post->id] )}}" method="post" id="delete">@csrf</form>
     </div>
     @endforeach
 </div>
