@@ -3,11 +3,11 @@
 @section('content')
 <div class="inner">
     <h2>掲示板詳細画面</h2>
-    @foreach($post as $post)
+    <!-- foreach($post as $posts) -->
     <div class="d-flex">
         <p class="bold">{{ $post->user->username }}さん</p>
         <span class="small">{{ $post->event_at}}</span>
-        <span class="small">View</span>
+        <span class="small pl-1">{{ $view->viewCounts($post_id) }} View</span>
         @if($post->user_id == Auth::user()->id)
         <div>
             <a href="{{ route('show.edit', ['id' => $post->id] ) }}" class="btn_design" title="{{ $post->post_title }}" post="{{ $post->post }}" id="{{ $post->id }}">編集</a>
@@ -30,7 +30,7 @@
             <span class="favorite_counts{{ $post->id }}">{{ $favorite->favoriteCounts($post->id) }}</span>
         </span>
         @endif
-        @endforeach
+        <!-- endforeach -->
     </div>
 
     <div class="comment_area">

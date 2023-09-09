@@ -25,8 +25,9 @@ class ActionLog extends Model
         return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
     }
 
+    //actionlogsテーブルからpost_idのレコードだけ引っ張る＝view数
     public function viewCounts($post_id)
     {
-        return $this->where('post_id', $post_id)->get()->count();
+        return ActionLog::where('post_id', $post_id)->count();
     }
 }

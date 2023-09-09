@@ -29,6 +29,7 @@ class PostsController extends Controller
         $post_comment = new Post;
         $favorite = new PostFavorite;
         $main_category = PostMainCategory::with('sPostSubCategories')->get();
+        $view = new ActionLog;
         // $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')->get();//get付けたら一回エラーを抜けた　でもlatest解決しようとしたらまた同じエラー
         // $posts = Post::all();
 
@@ -59,7 +60,7 @@ class PostsController extends Controller
         }
 
         $posts->load('postSubCategory'); // 各ページ内の投稿の postSubCategory リレーションを読み込む
-
+        // dd($favorite);
         return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite', 'main_category'));
     }
 
@@ -94,18 +95,26 @@ class PostsController extends Controller
     //投稿詳細画面
     public function postDetail($post_id)
     {
-        $post = Post::with('user', 'postComments', 'postFavorites')->where('id', $post_id)->get();
+        // $post = Post::with('user', 'postComments', 'postFavorites', 'action_logs')->where('id', $post_id)->get();
+        $post = Post::with('user', 'postComments', 'postFavorites', 'action_logs')->where('id', $post_id)->first();
         // $post = Post::with('user', 'postcomments', 'postFavorites')->findOrFail($post_id);
         // dd($post);
         $favorite = new PostFavorite;
         $c_favorite = new PostCommentFavorite;
+        $view = new ActionLog;
         // actionlogをテーブルに登録
         ActionLog::create([
             'user_id' => Auth::id(),
             'post_id' => $post_id,
             'event_at' => now()->format('Y-m-d')
         ]);
-        return view('logined.post_detail', compact('post', 'favorite', 'c_favorite', 'post_id'));
+        // 閲覧数を取得
+        $actionlog = new ActionLog();
+        $post_id = (int)$post_id;
+        $viewCount = $actionlog->viewCounts($post_id);
+        // dd(gettype($post_id));
+        // dd($post_id);
+        return view('logined.post_detail', compact('post', 'favorite', 'c_favorite', 'post_id', 'view'));
     }
 
     //投稿編集画面
