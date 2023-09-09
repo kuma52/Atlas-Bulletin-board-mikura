@@ -43,6 +43,11 @@ class Post extends Model
         return $this->hasMany('App\Models\Posts\PostFavorite');
     }
 
+    public function action_logs()
+    {
+        return $this->hasMany('App\Models\ActionLogs\ActionLog');
+    }
+
     //postCommentsテーブルからpost_idのレコードだけ引っ張る＝コメント数
     public function commentCounts($post_id)
     {

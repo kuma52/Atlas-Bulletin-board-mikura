@@ -9,6 +9,7 @@ use App\Models\Posts\PostMainCategory;
 use App\Models\Posts\PostSubCategory;
 use App\Models\Posts\PostCommentFavorite;
 use App\Models\Posts\PostFavorite;
+use App\Models\ActionLogs\ActionLog;
 use Illuminate\Support\facades\Auth;
 use App\Http\Requests\PostFormRequest;
 use App\Models\Users\User;
@@ -28,7 +29,8 @@ class PostsController extends Controller
         $post_comment = new Post;
         $favorite = new PostFavorite;
         $main_category = PostMainCategory::with('sPostSubCategories')->get();
-        $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory');
+        // $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')->get();//get付けたら一回エラーを抜けた　でもlatest解決しようとしたらまた同じエラー
+        // $posts = Post::all();
 
         if (!empty($request->keyword)) { //もしキーワードに入力があれば
             $posts = Post::with('user', 'postComments')
@@ -45,14 +47,18 @@ class PostsController extends Controller
                 })->latest()->paginate(10);
         } else if ($request->favorite_posts) { //もしいいねした投稿がおされたら
             $favorites = Auth::user()->favoritePostId()->get('post_id');
+            // $favorites = Post::with('favoritePostId')->get('post_id');
             $posts = Post::with('user', 'postComments')
                 ->whereIn('id', $favorites)->latest()->paginate(10);
         } else if ($request->my_posts) { //もし自分の投稿が押されたら
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->latest()->paginate(10);
         } else { //検索何もしてなかったとき
-            $posts = $posts->latest()->paginate(10);
+            $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')->latest()->paginate(10);
+            // $posts = Post::with('user', 'postComments', 'postFavorites', 'postSubCategory')->get()->orderBy('created_at', 'desc')->paginate(10);
         }
+
+        $posts->load('postSubCategory'); // 各ページ内の投稿の postSubCategory リレーションを読み込む
 
         return view('logined.dashboard', compact('posts', 'sub_category', 'post_comment', 'favorite', 'main_category'));
     }
@@ -93,6 +99,12 @@ class PostsController extends Controller
         // dd($post);
         $favorite = new PostFavorite;
         $c_favorite = new PostCommentFavorite;
+        // actionlogをテーブルに登録
+        ActionLog::create([
+            'user_id' => Auth::id(),
+            'post_id' => $post_id,
+            'event_at' => now()->format('Y-m-d')
+        ]);
         return view('logined.post_detail', compact('post', 'favorite', 'c_favorite', 'post_id'));
     }
 

@@ -14,7 +14,9 @@
                 </div>
                 <a href="{{ route('post.detail', ['id' => $post->id] ) }}" class="p-2">{{ $post->title }}</a>
                 <div class="d-flex mt-2">
+                    <!-- @if ($post->postSubCategory) -->
                     <span class="icon smaller p-1 mr-3">{{ $post->postSubCategory->sub_category }}</span>
+                    <!-- @endif -->
                     <span class="small mr-2 pt-1">コメント数 {{ $post_comment->commentCounts($post->id)->count() }}</span>
                     @if(Auth::user()->is_Favorite($post->id))
                     <span class="mr-2 pt-1">

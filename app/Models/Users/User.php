@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Posts\PostCommentFavorite');
     }
 
+    public function action_logs()
+    {
+        return $this->hasMany('App\Models\ActionLogs\ActionLog');
+    }
+
     // 自分がpostにいいねしているかどうか
     public function is_Favorite($post_id)
     {
